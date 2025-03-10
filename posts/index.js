@@ -1,9 +1,11 @@
 import express from "express";
 import { randomBytes } from "crypto";
+import cors from "cors";
 
 const app = express();
 
 app.use(express.json());
+app.use(cors());
 
 const posts = {};
 
@@ -25,5 +27,5 @@ app.post("/posts", (req, res) => {
 });
 
 app.listen(4000, () => {
-    console.log("App is listening in port 4000..");
+    console.log("App is listening on port 4000..");
 })
