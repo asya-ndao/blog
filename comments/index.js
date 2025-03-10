@@ -1,9 +1,11 @@
 import express from "express";
 import { randomBytes } from "crypto";
+import cors from "cors";
 
 const app = express();
 
 app.use(express.json());
+app.use(cors());
 
 const commentByPostId = {};
 
@@ -16,6 +18,8 @@ app.post("/posts/:id/comments", (req, res) => {
     const commentId = randomBytes(4).toString("hex");
     const { content } = req.body;
 
+    console.log("Content received: ", req.body);
+
     const comments = commentByPostId[req.params.id] || [];
 
     comments.push({ id: commentId, content});
@@ -26,5 +30,5 @@ app.post("/posts/:id/comments", (req, res) => {
 });
 
 app.listen(4001, () => {
-  console.log("App is listening in port 4001..");
+  console.log("App is listening on port 4001..");
 });
